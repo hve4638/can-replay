@@ -1,0 +1,7 @@
+build/
+.vscode/*
+/data/*
+
+clean.sh
+run.sh
+*.b

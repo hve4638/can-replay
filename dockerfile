@@ -21,9 +21,11 @@ RUN mkdir -p /code
 COPY ./build/canreplay /code
 COPY ./binarization /code/binarization
 COPY ./pcapparser /code/pcapparser
+COPY ./analyzer /code/analyzer
 
 ENV EXPORT_PCAPPARSER=/vol
 ENV EXPORT_BINARIZAION=/vol
+ENV EXPORT_ANALYZER=/vol
 
 USER user
 

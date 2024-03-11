@@ -49,6 +49,8 @@ elif [ "$1" == "export" -o "$1" == "e" ]; then
     fi
 elif [ "$1" == "replay" -o "$1" == "r" ]; then
     $dockercmd /code/canreplay
+elif [ "$1" == "analyze" -o "$1" == "a" ]; then
+    $dockercmd python3 /code/analyzer/app.py $2
 elif [ "$1" == "test" -o "$1" == "t" ]; then
     $dockercmd /bin/bash -c umask
 else 

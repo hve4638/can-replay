@@ -8,9 +8,9 @@ import subprocess
 def sh(command):
     try:
         result = subprocess.run(command, shell=True, capture_output=True, text=True, check=True)
-        return result.returncode, result.stdout, result.stderr, 
+        return result.returncode, result.stdout, result.stderr
     except subprocess.CalledProcessError as e:
-        return e.returncode, None, e.stderr, 
+        return e.returncode, None, e.stderr
 
 # tshark_path = "C:\\Program Files\\Wireshark\\tshark.exe"
 # tshark = "C:\\\"Program Files\"\\Wireshark\\tshark.exe"
@@ -47,7 +47,7 @@ def export(target:str, signiture:str):
     
     sys.stdout.write(f'Target: \'{target}\'\n')
     sys.stdout.write('Convert to JSON\n')
-    #errorcode = os.system(f'{tshark} -r {target} -T json >"{target_json}"')
+    
     tsharkcmd = f'{tshark} -r {target} -T json >"{target_json}"'
     errorcode, stdout, stderr = sh(tsharkcmd)
     if errorcode != 0:
@@ -65,6 +65,7 @@ def export(target:str, signiture:str):
     header += ['INTERVAL']
     header += ['DATA']
     
+    previous_tr = 0
     rows = []
     def on_parse(data:map):
         layers = data['_source']['layers']
@@ -78,7 +79,7 @@ def export(target:str, signiture:str):
         contents = {}
         contents['TIME'] = time_relative
         contents['CANID'] = canid
-        contents['INTERVAL'] = time_delta
+        contents['INTERVAL'] = time_relative
         contents['DATALEN'] = canlen
         contents['DATA'] = candata
         rows.append(contents)

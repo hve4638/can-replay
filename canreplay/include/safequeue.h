@@ -17,11 +17,10 @@ public:
         m_cv.notify_one();
     }
 
-    void pop(T& value)  {
+    void pop()  {
         std::unique_lock<std::mutex> lock(m_mutex);
         m_cv.wait(lock, [this]() { return m_queue.empty() == false; });
 
-        value = m_queue.front();
         m_queue.pop();
     }
     void top(T& value)  {

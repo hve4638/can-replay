@@ -1,6 +1,12 @@
+.vscode/
 build/
-.vscode/*
-/data/*
+data/
+export/
+result/
+binization/
+vol/
+tmp/
+__pycache__/
 
 clean.sh
 run.sh

@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 import ctypes
 import sys, os, csv
+import time
+import platform
+from utils import *
 
 class CanPkt(ctypes.Structure):
     _fields_ = [
@@ -57,13 +60,20 @@ def export(src, dst):
                 pkt.datalen = c_datalen
                 o.write(bytes(pkt))
                 count += 1
-            sys.stdout.write(f'Extraction completed. Saved {count} packets\n')
+            sys.stdout.write(f'Extraction completed. Saved {count} packets\n\n')
 
 if __name__ == "__main__":
-    if len(sys.argv) <= 2:
-        sys.stderr.write(f'Using : {sys.argv[0]} <src> <dst>\n')
+    src_dir = script_path()
+    export_dir = f'{src_dir}/export'
+    mkdir_p(export_dir)
+    
+    if len(sys.argv) <= 1:
+        sys.stderr.write(f'Using : {sys.argv[0]} <target> ...\n')
     else:
-        src = sys.argv[1]
-        dst = sys.argv[2]
-        export(src, dst)
+        for filename in sys.argv[1:]:
+            filename = filename.replace('\\', '/')
+            signiture = extract_signiture(filename)
+            export(filename, f'{export_dir}/{signiture}.replay')
+
+        
     

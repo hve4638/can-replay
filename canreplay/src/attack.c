@@ -9,12 +9,6 @@
 #include <stdio.h>
 #include "canattack.h"
 
-int sockets = 0;
-
-void can_test(int id) {
-    printf("can_test: %d\n", id);
-}
-
 int can_open(const char* if_name) {
     int s;
     struct sockaddr_can addr;

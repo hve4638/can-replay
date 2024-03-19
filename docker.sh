@@ -48,7 +48,7 @@ elif [ "$1" == "export" -o "$1" == "e" ]; then
         $dockercmd python3 /code/binarization/app.py $3
     fi
 elif [ "$1" == "replay" -o "$1" == "r" ]; then
-    $dockercmd /code/canreplay
+    $dockercmd /code/canreplay $2
 elif [ "$1" == "analyze" -o "$1" == "a" ]; then
     $dockercmd python3 /code/analyzer/app.py $2
 elif [ "$1" == "test" -o "$1" == "t" ]; then

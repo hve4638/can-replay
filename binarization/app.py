@@ -62,9 +62,10 @@ def export(src, dst):
                 count += 1
             sys.stdout.write(f'Extraction completed. Saved {count} packets\n\n')
 
+env_binarization = os.environ.get('EXPORT_BINARIZAION')
 if __name__ == "__main__":
     src_dir = script_path()
-    export_dir = f'{src_dir}/export'
+    export_dir = f'{env_binarization}/replay'
     mkdir_p(export_dir)
     
     if len(sys.argv) <= 1:
